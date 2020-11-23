@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fashion Shop</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="custom.js"></script>
+</head>
+<body>
+
+	<h1>Faashion Shop</h1>
+	<h2>
+		<a href="index.html">Shop</a>
+		<a href="checkout.html">Checkout(<span id="count"></span>)</a>
+	</h2>
+
+	<table cellpadding="25">
+		<tr>
+			<td>
+				<img src="charles&keith.jpg" width="250" height="200"><br>
+				<h3>Name: Bags</h3>
+				<h3>Price: 140000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="1" data-name="bags" data-price="140000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="charles&keith_wallet.jpeg" width="250" height="200"><br>
+				<h3>Name: Wallet</h3>
+				<h3>Price: 100000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="2" data-name="wallet" data-price="100000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="shoes.jpg" width="250" height="200"><br>
+				<h3>Name: Shoes</h3>
+				<h3>Price: 130000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="3" data-name="shoes" data-price="130000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="snacker.jpg" width="250" height="200"><br>
+				<h3>Name: Snacker</h3>
+				<h3>Price: 150000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="4" data-name="snacker" data-price="150000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="women t shirt.jpeg" width="250" height="200"><br>
+				<h3>Name: Women Tshirt</h3>
+				<h3>Price: 60000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="5" data-name="women tshirt" data-price="60000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="shirt.jpg" width="250" height="200"><br>
+				<h3>Name: Men Shirt</h3>
+				<h3>Price: 80000 MMK</h3>
+				<h3>Brand: Charles & Keith</h3>
+				<button class="addtocart" data-id="6" data-name="men shirt" data-price="80000" data-brand="Charles & Keith">Add to Cart</button>
+			</td>
+			<td>
+				<img src="trouser.jpg" width="250" height="200"><br>
+				<h3>Name: Trouser</h3>
+				<h3>Price: 120000 MMK</h3>
+				<h3>Brand: Nobody</h3>
+				<button class="addtocart" data-id="7" data-name="trouser" data-price="120000" data-brand="Nobody">Add to Cart</button>
+			</td>
+			<td>
+				<img src="skirt.jpeg" width="250" height="200"><br>
+				<h3>Name: Skirt</h3>
+				<h3>Price: 40000 MMK</h3>
+				<h3>Brand: H&M</h3>
+				<button class="addtocart" data-id="8" data-name="skirt" data-price="40000" data-brand="H&M">Add to Cart</button>
+			</td>
+			<td>
+				<img src="adidas_hat.jpg" width="250" height="200"><br>
+				<h3>Name: Hat</h3>
+				<h3>Price: 110000 MMK</h3>
+				<h3>Brand: Adidas</h3>
+				<button class="addtocart" data-id="9" data-name="shoes" data-price="110000" data-brand="adidas">Add to Cart</button>
+			</td>
+		</tr>
+	</table>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			count();
+			$(".addtocart").click(function(){
+				var id=$(this).data('id');
+				var name=$(this).data('name');
+				var price=$(this).data('price');
+				var brand=$(this).data('brand');
+				// console.log(id);
+				// console.log(name);
+				// console.log(price);
+				// console.log(brand);
+
+				var item={id:id,name:name,price:price,brand:brand,qty:1}
+				// console.log(item);
+
+				var shop_str=localStorage.getItem("Fashion_shop");
+
+				var shop_arr;
+
+				if(shop_str==null){
+					shop_arr=Array();
+				}else {
+					shop_arr=JSON.parse(shop_str);
+				}
+
+				var status=false;
+				$.each(shop_arr,function(i,v){
+					if(id==v.id){
+						status=true;
+						v.qty++;
+					}
+					// console.log(i);
+					// console.log(v);
+				})
+
+				if (!status) {
+					shop_arr.push(item);
+					// console.log(shop_arr);
+				}
+			
+
+				var shopData=JSON.stringify(shop_arr);
+				//console.log(shopData);
+
+				localStorage.setItem("Fashion_shop",shopData);
+
+				count();
+
+			})
+
+			
+		})
+
+	</script>
+
+</body>
+</html>
